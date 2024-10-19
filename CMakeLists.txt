@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29.3)
+cmake_minimum_required(VERSION 3.26.4)
 
 project(Taxi_Time
 	VERSION 1.0.0
@@ -29,6 +29,9 @@ add_executable(${TAXI_TARGET_NAME}
 
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Object.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/Object.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Taxi.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Taxi.cpp
 	
 )
 
@@ -37,10 +40,12 @@ target_include_directories(${TAXI_TARGET_NAME} PUBLIC
 )
 
 set(TAXI_SPRITE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sprites/taxi.png")
+set(BACKGROUND_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sprites/background.png")
 
 # Pass sprite paths to the C++ code
 target_compile_definitions(${TAXI_TARGET_NAME} PRIVATE 
     TAXI_SPRITE_PATH="${TAXI_SPRITE_PATH}"
+    BACKGROUND_PATH="${BACKGROUND_PATH}"
 )
 
 target_link_libraries(${TAXI_TARGET_NAME} PUBLIC sfml-graphics)
