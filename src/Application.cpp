@@ -6,7 +6,7 @@
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode(800, 1000), "Taxi Time!", sf::Style::Titlebar | sf::Style::Close);
-	
+	window.setFramerateLimit(60);
 	Game::Taxi taxi = Game::Taxi(window, TAXI_SPRITE_PATH);
 
 	sf::Texture backgroundText;
@@ -17,6 +17,9 @@ int main() {
 
 	sf::Sprite backgroundSprite;
 	backgroundSprite.setTexture(backgroundText);
+
+	sf::Sprite secondaryBGSprite;
+	secondaryBGSprite.setTexture(backgroundText);
 
 	// Get the window size
 	sf::Vector2u windowSize = window.getSize();
@@ -30,17 +33,15 @@ int main() {
 
 	// Set the scale of the sprite
 	backgroundSprite.setScale(scaleX, scaleY);
+	secondaryBGSprite.setScale(scaleX, scaleY);
+	secondaryBGSprite.setPosition(0, backgroundSprite.getPosition().y - windowSize.y);
 
+	double moveUp = backgroundSprite.getPosition().y;
+	double secondaryMoveDown = backgroundSprite.getPosition().y - windowSize.y;
 
-	// Create a texture rectangle that will "scroll" the background
-	sf::IntRect textureRect(0, 0, windowSize.x / scaleX, windowSize.y / scaleY);
-
-	// Variables for controlling the smoothness of scrolling
-	float scrollSpeed = 600.0f;  // Controls the speed of scrolling (pixels per second)
-	float currentOffset = 0.0f;  // Offset in the y-direction
-
-	// Clock to track time
 	sf::Clock clock;
+
+	int moveUpSpeed = 5; // For when we have a score to speed up the game
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -51,24 +52,27 @@ int main() {
 			taxi.controls(event);
 		}
 
-		// Get the delta time (time elapsed between frames)
-		float deltaTime = clock.restart().asSeconds();
+		float elapsedTime = clock.getElapsedTime().asSeconds();
+		clock.restart();
 
-		// Move the texture rectangle downward (scrolling effect)
-		textureRect.top -= static_cast<int>(scrollSpeed * deltaTime);
+		moveUp += moveUpSpeed;
 
-		// Reset the texture rectangle if it moves past the texture's height
-		if (textureRect.top < textureSize.y) {
-			textureRect.top = 0;
+		if (backgroundSprite.getPosition().y > 1000) {
+			moveUp = 0;
+		}
+		else if (secondaryBGSprite.getPosition().y > 1000) {
+			secondaryMoveDown = 0;
 		}
 
+		backgroundSprite.setPosition(0, moveUp);
+		secondaryBGSprite.setPosition(0, secondaryMoveDown + moveUp);
 
-		// Apply the scrolling texture rectangle to the sprite
-		backgroundSprite.setTextureRect(textureRect);
-
+		std::cout << "BG " << backgroundSprite.getPosition().y << std::endl;
+		std::cout << "Secondary BG " << secondaryBGSprite.getPosition().y << std::endl;
 
 		window.clear(sf::Color::Black);
 		window.draw(backgroundSprite);
+		window.draw(secondaryBGSprite);
 		taxi.draw();
 		window.display();
 	}
