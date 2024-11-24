@@ -1,16 +1,25 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <vector>
+#include<random>
+
 #include "Taxi.h"
 #include "Car.h"
 
-#include <iostream>
+#include <iostream> // temporarily for loggin
 
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode(800, 1000), "Taxi Time!", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(60);
 	std::unique_ptr <game::Taxi> taxi = std::make_unique<game::Taxi>(window, TAXI_SPRITE_PATH);
-	game::Car car = game::Car(window, CAR_PATH);					// TODO: add a vector of unique_ptrs to hold cars to be spawned
+
+	std::vector<std::shared_ptr<game::Car>> carsVect;
+	for (int i = 0; i < 1; i++) {
+		std::shared_ptr<game::Car> car = std::make_shared<game::Car>(window, CAR_PATH, 0.f, -200.f);
+		car->randomizeLocation();
+		carsVect.push_back(car);
+	}
 
 	sf::Texture backgroundText;
 	backgroundText.setRepeated(true);
@@ -70,16 +79,19 @@ int main() {
 		backgroundSprite.setPosition(0, moveUp);
 		secondaryBGSprite.setPosition(0, secondaryMoveDown + moveUp);
 
-		car.changePosition(0, 3);
-		if (car.detectCollision(*taxi)) {
-			car.setPosition(625, -200);
-		}
-
 		window.clear(sf::Color::Black);
 		window.draw(backgroundSprite);
 		window.draw(secondaryBGSprite);
 		taxi->draw();
-		car.draw();
+	
+		for (auto& car : carsVect) {
+			car->draw();
+			car->changePosition(0, 3);
+			if (car->detectCollision(*taxi)) {
+				car->relocate();
+			}
+		}
+
 		window.display();
 	}
 

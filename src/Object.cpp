@@ -29,6 +29,13 @@ namespace engine {
 		sf::FloatRect otherBound = anotherObj.mSprite.getGlobalBounds();
 		sf::FloatRect ownBound = mSprite.getGlobalBounds();
 
+		// Apply the sprite's transform (rotation, scale, and translation)
+		sf::Transform otherTransform = anotherObj.mSprite.getTransform();
+		otherBound = otherTransform.transformRect(otherBound);
+
+		sf::Transform ownTransform = mSprite.getTransform();
+		ownBound = ownTransform.transformRect(ownBound);
+
 		return otherBound.intersects(ownBound);
 	}
 
