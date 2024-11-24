@@ -1,7 +1,5 @@
 #include "Taxi.h"
 
-#include <iostream>
-
 namespace Game {
 	void Taxi::controls(sf::Event& event)
 	{
@@ -9,7 +7,7 @@ namespace Game {
 		{
 			// left key is pressed: move our character
 			if (getPosition().x > 180) {
-				setPosition(-10.f, 0);
+				changePosition(-10.f, 0);
 			}
 		}
 
@@ -17,20 +15,20 @@ namespace Game {
 		{
 			// left key is pressed: move our character
 			if (getPosition().x < 620) {
-				setPosition(10.f, 0);
+				changePosition(10.f, 0);
 			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			// left key is pressed: move our character
-			setPosition(0, -10.f);
+			changePosition(0, -10.f);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
 			// left key is pressed: move our character
-			setPosition(0, 10.f);
+			changePosition(0, 10.f);
 		}
 	}
 }

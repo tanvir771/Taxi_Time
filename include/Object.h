@@ -8,11 +8,14 @@ namespace Engine {
 
 		void draw();
 
+		bool detectCollision(Object anotherObj);
+
 		// Getters
 		sf::Vector2f getPosition();
 		
 		// Setters
-		void setPosition(float x, float y);
+		void changePosition(float x, float y); // change Position adds onto the current position
+		void setPosition(float x, float y);	   // This sets the sprite to the specified location
 
 	private:
 		sf::Sprite mSprite;

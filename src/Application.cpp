@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Taxi.h"
+#include "Car.h"
 
 #include <iostream>
 
@@ -8,6 +9,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 1000), "Taxi Time!", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(60);
 	Game::Taxi taxi = Game::Taxi(window, TAXI_SPRITE_PATH);
+	Game::Car car = Game::Car(window, CAR_PATH);
 
 	sf::Texture backgroundText;
 	backgroundText.setRepeated(true);
@@ -41,7 +43,7 @@ int main() {
 
 	sf::Clock clock;
 
-	int moveUpSpeed = 5; // For when we have a score to speed up the game
+	int moveUpSpeed = 10; // For when we have a score to speed up the game
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -67,13 +69,16 @@ int main() {
 		backgroundSprite.setPosition(0, moveUp);
 		secondaryBGSprite.setPosition(0, secondaryMoveDown + moveUp);
 
-		std::cout << "BG " << backgroundSprite.getPosition().y << std::endl;
-		std::cout << "Secondary BG " << secondaryBGSprite.getPosition().y << std::endl;
+		car.changePosition(0, 3);
+		if (car.detectCollision(taxi)) {
+			car.setPosition(625, -200);
+		}
 
 		window.clear(sf::Color::Black);
 		window.draw(backgroundSprite);
 		window.draw(secondaryBGSprite);
 		taxi.draw();
+		car.draw();
 		window.display();
 	}
 

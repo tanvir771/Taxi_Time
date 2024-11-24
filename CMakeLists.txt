@@ -33,6 +33,8 @@ add_executable(${TAXI_TARGET_NAME}
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Taxi.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/Taxi.cpp
 	
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Car.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Car.cpp
 )
 
 target_include_directories(${TAXI_TARGET_NAME} PUBLIC
@@ -41,11 +43,13 @@ target_include_directories(${TAXI_TARGET_NAME} PUBLIC
 
 set(TAXI_SPRITE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sprites/taxi.png")
 set(BACKGROUND_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sprites/background.png")
+set(CAR_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sprites/car.png")
 
 # Pass sprite paths to the C++ code
 target_compile_definitions(${TAXI_TARGET_NAME} PRIVATE 
     TAXI_SPRITE_PATH="${TAXI_SPRITE_PATH}"
     BACKGROUND_PATH="${BACKGROUND_PATH}"
+    CAR_PATH="${CAR_PATH}"
 )
 
 target_link_libraries(${TAXI_TARGET_NAME} PUBLIC sfml-graphics)

@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Object.h"
 
+#include <iostream>
+
 namespace Engine {
 	Object::Object(sf::RenderWindow& window, const std::string& texturePath, float x, float y) : mOwnerWindow(window)
 	{
@@ -22,16 +24,29 @@ namespace Engine {
 		mOwnerWindow.draw(mSprite);
 	}
 
+	bool Object::detectCollision(Object anotherObj)
+	{
+		sf::FloatRect otherBound = anotherObj.mSprite.getGlobalBounds();
+		sf::FloatRect ownBound = mSprite.getGlobalBounds();
+
+		return otherBound.intersects(ownBound);
+	}
+
 	sf::Vector2f Object::getPosition()
 	{
 		return mSprite.getPosition();
 	}
 
-	void Object::setPosition(float x, float y)
+	void Object::changePosition(float x, float y)
 	{
 		sf::Vector2f position = mSprite.getPosition();
 		mSprite.setPosition(position.x + x, position.y + y);
 	}
 
+	void Object::setPosition(float x, float y)
+	{
+		mSprite.setPosition(x, y);
+	}
 
+	
 }
