@@ -1,9 +1,9 @@
 #include "Object.h"
 
-namespace Game {
-	class Taxi : public Engine::Object {
+namespace game {
+	class Taxi : public engine::Object {
 	public:
-		Taxi(sf::RenderWindow& window, std::string texturePath) : Engine::Object(window, texturePath) {};
+		Taxi(sf::RenderWindow& window, std::string texturePath) : engine::Object(window, texturePath) {};
 
 		void controls(sf::Event& event);
 	};

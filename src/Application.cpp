@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include "Taxi.h"
 #include "Car.h"
 
@@ -8,8 +9,8 @@ int main() {
 
 	sf::RenderWindow window(sf::VideoMode(800, 1000), "Taxi Time!", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(60);
-	Game::Taxi taxi = Game::Taxi(window, TAXI_SPRITE_PATH);
-	Game::Car car = Game::Car(window, CAR_PATH);
+	std::unique_ptr <game::Taxi> taxi = std::make_unique<game::Taxi>(window, TAXI_SPRITE_PATH);
+	game::Car car = game::Car(window, CAR_PATH);					// TODO: add a vector of unique_ptrs to hold cars to be spawned
 
 	sf::Texture backgroundText;
 	backgroundText.setRepeated(true);
@@ -38,7 +39,7 @@ int main() {
 	secondaryBGSprite.setScale(scaleX, scaleY);
 	secondaryBGSprite.setPosition(0, backgroundSprite.getPosition().y - windowSize.y);
 
-	double moveUp = backgroundSprite.getPosition().y;
+	double moveUp = backgroundSprite.getPosition().y; 
 	double secondaryMoveDown = backgroundSprite.getPosition().y - windowSize.y;
 
 	sf::Clock clock;
@@ -51,7 +52,7 @@ int main() {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
-			taxi.controls(event);
+			taxi->controls(event);
 		}
 
 		float elapsedTime = clock.getElapsedTime().asSeconds();
@@ -70,14 +71,14 @@ int main() {
 		secondaryBGSprite.setPosition(0, secondaryMoveDown + moveUp);
 
 		car.changePosition(0, 3);
-		if (car.detectCollision(taxi)) {
+		if (car.detectCollision(*taxi)) {
 			car.setPosition(625, -200);
 		}
 
 		window.clear(sf::Color::Black);
 		window.draw(backgroundSprite);
 		window.draw(secondaryBGSprite);
-		taxi.draw();
+		taxi->draw();
 		car.draw();
 		window.display();
 	}

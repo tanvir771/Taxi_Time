@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace Engine {
+namespace engine {
 	Object::Object(sf::RenderWindow& window, const std::string& texturePath, float x, float y) : mOwnerWindow(window)
 	{
 		if (!mTexture.loadFromFile(texturePath)) {

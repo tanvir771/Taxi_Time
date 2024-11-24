@@ -1,6 +1,6 @@
 #include "Car.h"
 
-namespace Game {
+namespace game {
 	void Car::relocate()
 	{
 		changePosition(800, 0);

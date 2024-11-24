@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-namespace Engine {
+namespace engine {
 	class Object {
 	public:
 		Object(sf::RenderWindow& window, const std::string& texturePath, float x = 400.f, float y = 800.f);

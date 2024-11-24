@@ -1,6 +1,6 @@
 #include "Taxi.h"
 
-namespace Game {
+namespace game {
 	void Taxi::controls(sf::Event& event)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
