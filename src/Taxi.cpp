@@ -1,18 +1,24 @@
 #include "Taxi.h"
 
+#include <iostream>
+
 namespace Game {
 	void Taxi::controls(sf::Event& event)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
 			// left key is pressed: move our character
-			setPosition(-10.f, 0);
+			if (getPosition().x > 180) {
+				setPosition(-10.f, 0);
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			// left key is pressed: move our character
-			setPosition(10.f, 0);
+			if (getPosition().x < 620) {
+				setPosition(10.f, 0);
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))

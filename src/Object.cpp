@@ -22,6 +22,11 @@ namespace Engine {
 		mOwnerWindow.draw(mSprite);
 	}
 
+	sf::Vector2f Object::getPosition()
+	{
+		return mSprite.getPosition();
+	}
+
 	void Object::setPosition(float x, float y)
 	{
 		sf::Vector2f position = mSprite.getPosition();
