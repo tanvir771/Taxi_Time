@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
-#include<random>
+#include <random>
 
 #include "Taxi.h"
 #include "Car.h"
@@ -15,7 +15,7 @@ int main() {
 	std::unique_ptr <game::Taxi> taxi = std::make_unique<game::Taxi>(window, TAXI_SPRITE_PATH);
 
 	std::vector<std::shared_ptr<game::Car>> carsVect;
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 10; i++) {
 		std::shared_ptr<game::Car> car = std::make_shared<game::Car>(window, CAR_PATH, 0.f, -200.f);
 		car->randomizeLocation();
 		carsVect.push_back(car);

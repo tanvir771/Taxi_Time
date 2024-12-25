@@ -24,7 +24,7 @@ namespace engine {
 		mOwnerWindow.draw(mSprite);
 	}
 
-	bool Object::detectCollision(Object anotherObj)
+	bool Object::detectCollision(Object& anotherObj)
 	{
 		sf::FloatRect otherBound = anotherObj.mSprite.getGlobalBounds();
 		sf::FloatRect ownBound = mSprite.getGlobalBounds();

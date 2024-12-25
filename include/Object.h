@@ -8,7 +8,7 @@ namespace engine {
 
 		void draw();
 
-		bool detectCollision(Object anotherObj);
+		bool detectCollision(Object& anotherObj);
 
 		// Getters
 		sf::Vector2f getPosition();
