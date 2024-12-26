@@ -35,7 +35,11 @@ add_executable(${TAXI_TARGET_NAME}
 	
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Car.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/Car.cpp
-)
+
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Collisions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Collisions.cpp
+
+  )
 
 target_include_directories(${TAXI_TARGET_NAME} PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include

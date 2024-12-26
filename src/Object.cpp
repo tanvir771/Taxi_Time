@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Object.h"
-
+#include "Collisions.h"
 #include <iostream>
 
 namespace engine {
@@ -36,7 +36,8 @@ namespace engine {
 		sf::Transform ownTransform = mSprite.getTransform();
 		ownBound = ownTransform.transformRect(ownBound);
 
-		return otherBound.intersects(ownBound);
+		//return otherBound.intersects(ownBound);
+		return Collisions::SATCollision(mSprite, anotherObj.mSprite);
 	}
 
 	sf::Vector2f Object::getPosition()
